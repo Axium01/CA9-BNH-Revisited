@@ -104,11 +104,15 @@
                 }
                 validityCheck = false;
                 while (validityCheck == false) {
-                    var userLoop = prompt('Do you want to play again? (Yes / No)');
-                    if ((userLoop.toLowerCase() === "yes") ||
-                        (userLoop.toLowerCase() === "no")) {
-                        validityCheck = true;
+                    var userLoop = null;
+                    userLoop = prompt('Do you want to play again? (Yes / No)');
+                    if (userLoop !== null) {
+                        if ((userLoop.toLowerCase() === "yes") ||
+                            (userLoop.toLowerCase() === "no")) {
+                            validityCheck = true;
+                        }
                     }
+                    
                     if (validityCheck == false) {
                         alert("Please enter a valid input!");
                     }
