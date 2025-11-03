@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -7,87 +8,117 @@
     <meta name="author" content="Milo Wearn">
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
-    <body>
-        <!-- content in these paragraphs gets overwritten with scripted content -->
-        <p id="a1"></p>
-        <p id="a2"></p>
-        <p id="a3"></p>
-        <script>
+
+<body>
+    <!-- content in these paragraphs gets overwritten with scripted content -->
+    <p id="a1"></p>
+    <p id="a2"></p>
+    <p id="a3"></p>
+    <h2 id="a4"></h2>
+    <h2 id="a5"></h2>
+    <script>
+        let loopCheck = true;
+        var userName = null;
             // prompt user for name and type
-            var userName = prompt('Welcome to Bear Hunter Ninja! Please enter your name to get started: ');
+            userName = prompt('Welcome to Bear Hunter Ninja! Please enter your name to get started: ');
+        if (userName === null) {
+            loopCheck = false;
+            document.getElementById("a4").innerHTML = ('Press F5 to play again.');
+        }
+        while (loopCheck == true) {
             // type validity
-            // I know this isn't required, but I always like doing this :]
+
             let validityCheck = false;
-            while (validityCheck == false) {
-                var userType = prompt('Who are you: Bear, Ninja, or Hunter?');
-                if ((userType.toLowerCase() === "bear") || 
-                    (userType.toLowerCase() === "ninja") || 
+            var userType = null;
+            userType = prompt('Who are you: Bear, Ninja, or Hunter?');
+            if (userType == null) {
+                validityCheck = false;
+                loopCheck = false;
+                document.getElementById("a4").innerHTML = ('Invalid Entry.');
+                document.getElementById("a5").innerHTML = ('Press F5 to play again.');
+            } else {
+                if ((userType.toLowerCase() === "bear") ||
+                    (userType.toLowerCase() === "ninja") ||
                     (userType.toLowerCase() === "hunter")) {
                     validityCheck = true;
                 }
-                if (validityCheck == false) {
-                    alert("Please enter a valid input!");
+            }
+
+            if (validityCheck == true) {
+                // computer type
+                var computerType = "";
+                var computerRNG = Math.floor(Math.random() * 3) + 1; // random number between 1 and 3
+                if (computerRNG == 1) {
+                    computerType = "Bear";
+                } else if (computerRNG == 2) {
+                    computerType = "Ninja";
+                } else if (computerRNG == 3) {
+                    computerType = "Hunter"
+                } else { // just in case...
+                    computerType = "Bear" // default to bear
+                }
+
+                // win logic
+                let winner = "";
+                if (computerType.toLowerCase() === userType.toLowerCase()) {
+                    winner = "tie";
+                } else if ((computerType.toLowerCase() === 'bear') && (userType.toLowerCase() === 'ninja')) {
+                    winner = "computer";
+                } else if ((computerType.toLowerCase() === 'ninja') && (userType.toLowerCase() === 'bear')) {
+                    winner = "user";
+                } else if ((computerType.toLowerCase() === 'ninja') && (userType.toLowerCase() === 'hunter')) {
+                    winner = "computer";
+                } else if ((computerType.toLowerCase() === 'hunter') && (userType.toLowerCase() === 'ninja')) {
+                    winner = "user";
+                } else if ((computerType.toLowerCase() === 'hunter') && (userType.toLowerCase() === 'bear')) {
+                    winner = "computer";
+                } else if ((computerType.toLowerCase() === 'bear') && (userType.toLowerCase() === 'hunter')) {
+                    winner = "user";
+                } else {
+                    winner = "tie"; //fallback
+                }
+
+
+                // console logs
+                console.log(userName + ', you picked ' + userType + '!');
+                console.log('The computer picked ' + computerType + '!');
+                // changes the content in the page
+                document.getElementById("a1").innerHTML = (userName + ', you picked ' + userType + '!');
+                document.getElementById("a2").innerHTML = ('The computer picked ' + computerType + '!');
+                switch (winner) {
+                    case 'tie':
+                        console.log("It's a tie!");
+                        document.getElementById("a3").innerHTML = ("It's a tie!");
+                        break;
+                    case 'user':
+                        console.log("You win!");
+                        document.getElementById("a3").innerHTML = ("You win!");
+                        break;
+                    case 'computer':
+                        console.log("You lose!");
+                        document.getElementById("a3").innerHTML = ("You lose!");
+                        break;
+                }
+                validityCheck = false;
+                while (validityCheck == false) {
+                    var userLoop = prompt('Do you want to play again? (Yes / No)');
+                    if ((userLoop.toLowerCase() === "yes") ||
+                        (userLoop.toLowerCase() === "no")) {
+                        validityCheck = true;
+                    }
+                    if (validityCheck == false) {
+                        alert("Please enter a valid input!");
+                    }
+                }
+                if (userLoop.toLowerCase() == "no") {
+                    loopCheck = false;
                 }
             }
-            // computer type
-            var computerType = "";
-            var computerRNG = Math.floor(Math.random() * 3) + 1; // random number between 1 and 3
-            if (computerRNG == 1) {
-                computerType = "Bear";
-            } else if (computerRNG == 2) {
-                computerType = "Ninja";
-            } else if (computerRNG == 3) {
-                computerType = "Hunter"
-            } else { // just in case...
-                computerType = "Bear" // default to bear
-            }
-            // win logic
-            let winner = "";
-            if (computerType.toLowerCase() === userType.toLowerCase()) {
-                winner = "tie";
-            } else if ((computerType.toLowerCase() === 'bear') && (userType.toLowerCase() === 'ninja')) {
-                winner = "computer";
-            } else if ((computerType.toLowerCase() === 'ninja') && (userType.toLowerCase() === 'bear')) {
-                winner = "user";
-            } else if ((computerType.toLowerCase() === 'ninja') && (userType.toLowerCase() === 'hunter')) {
-                winner = "computer";
-            } else if ((computerType.toLowerCase() === 'hunter') && (userType.toLowerCase() === 'ninja')) {
-                winner = "user";
-            } else if ((computerType.toLowerCase() === 'hunter') && (userType.toLowerCase() === 'bear')) {
-                winner = "computer";
-            } else if ((computerType.toLowerCase() === 'bear') && (userType.toLowerCase() === 'hunter')) {
-                winner = "user";
-            } else {
-                winner = "tie"; //fallback
-            }
 
-            
-            // console logs
-            console.log(userName + ', you picked ' + userType + '!');
-            console.log('The computer picked ' + computerType + '!');
-            // changes the content in the page
-            document.getElementById("a1").innerHTML = (userName + ', you picked ' + userType + '!');
-            document.getElementById("a2").innerHTML = ('The computer picked ' + computerType + '!');
-            switch (winner) {
-                case 'tie':
-                    console.log("It's a tie!");
-                    document.getElementById("a3").innerHTML = ("It's a tie!");
-                    break;
-                case 'user':
-                    console.log("You win!");
-                    document.getElementById("a3").innerHTML = ("You win!");
-                    break;
-                case 'computer':
-                    console.log("You lose!");
-                    document.getElementById("a3").innerHTML = ("You lose!");
-                    break;
-            }
-         </script>
-         
-     </body>
+        }
+
+    </script>
+
+</body>
 
 </html>
-
-
-
-
