@@ -18,7 +18,7 @@
     <h2 id="a5"></h2>
     <script>
         let loopCheck = true;
-        var userName = null;
+        let userName = null;
             // prompt user for name and type
             userName = prompt('Welcome to Bear Hunter Ninja! Please enter your name to get started: ');
         if (userName === null) {
@@ -29,7 +29,7 @@
             // type validity
 
             let validityCheck = false;
-            var userType = null;
+            let userType = null;
             userType = prompt('Who are you: Bear, Ninja, or Hunter?');
             if (userType == null) {
                 validityCheck = false;
@@ -46,8 +46,8 @@
 
             if (validityCheck == true) {
                 // computer type
-                var computerType = "";
-                var computerRNG = Math.floor(Math.random() * 3) + 1; // random number between 1 and 3
+                let computerType = "";
+                let computerRNG = Math.floor(Math.random() * 3) + 1; // random number between 1 and 3
                 if (computerRNG == 1) {
                     computerType = "Bear";
                 } else if (computerRNG == 2) {
@@ -104,7 +104,7 @@
                 }
                 validityCheck = false;
                 while (validityCheck == false) {
-                    var userLoop = null;
+                    let userLoop = null;
                     userLoop = prompt('Do you want to play again? (Yes / No)');
                     if (userLoop !== null) {
                         if ((userLoop.toLowerCase() === "yes") ||
@@ -127,5 +127,6 @@
     </script>
 
 </body>
+
 
 </html>
